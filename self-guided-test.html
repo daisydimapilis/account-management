@@ -1,0 +1,388 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>OneWorkforce Navigation Test</title>
+<meta name="description" content="A 5-task self-guided usability test of the OneWorkforce Accounts, Companies and Sites prototype.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Mulish:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --text: #1d2b46; --text-2: #4c5870; --muted: #788090; --border: #dbdfe5; --bg: #f7f8fa;
+  --orange: #ef752e; --orange-dark: #da6427; --orange-soft: #ffe3cc; --orange-tint: #fff4ec;
+  --green: #0f8c30; --green-bg: #ecfbf1; --red: #c90003; --red-bg: #feeeec; --amber: #b17500; --amber-bg: #fffaf0;
+  --font: "Mulish", "Segoe UI", system-ui, -apple-system, sans-serif;
+}
+* { box-sizing: border-box; margin: 0; }
+html, body { height: 100%; overflow: hidden; }
+body { font-family: var(--font); color: var(--text); background: #e9ecf1; font-size: 15px; line-height: 1.5; }
+button, input, textarea { font: inherit; color: inherit; }
+[hidden] { display: none !important; }
+p { color: var(--text-2); }
+
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; height: 42px; padding: 0 20px; border-radius: 8px; border: 1px solid var(--border); background: #fff; font-weight: 700; font-size: 14px; cursor: pointer; color: var(--text); white-space: nowrap; }
+.btn:hover { background: #f3f5f8; }
+.btn.primary { background: var(--orange); border-color: var(--orange); color: #fff; }
+.btn.primary:hover { background: var(--orange-dark); border-color: var(--orange-dark); }
+.btn.primary:disabled { background: #f4c4a6; border-color: #f4c4a6; cursor: not-allowed; }
+.btn:focus-visible, .opt:focus-within, input:focus-visible, textarea:focus-visible { outline: 2px solid var(--orange); outline-offset: 2px; }
+
+/* ---------- the prototype fills the page ---------- */
+#app { position: fixed; inset: 0; display: flex; flex-direction: column; }
+#proto { flex: 1; min-height: 0; width: 100%; border: 0; background: #fff; }
+#proto.locked { pointer-events: none; }
+
+/* slim bar under the prototype */
+#bar { flex: none; height: 48px; background: var(--text); color: #fff; display: flex; align-items: center; gap: 14px; padding: 0 16px; font-size: 14px; }
+#bar .step { font-weight: 800; color: var(--orange-soft); white-space: nowrap; }
+#bar .goal { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: #dfe4ee; }
+#bar .timer { font-variant-numeric: tabular-nums; font-weight: 800; min-width: 48px; text-align: right; }
+#bar .rec { display: flex; align-items: center; gap: 6px; font-size: 12px; color: #aeb7c8; white-space: nowrap; }
+#bar .rec i { width: 8px; height: 8px; border-radius: 50%; background: #ef4437; animation: pulse 1.4s infinite; }
+@keyframes pulse { 50% { opacity: .25; } }
+#bar button { height: 32px; padding: 0 14px; border-radius: 7px; border: 1px solid #50607e; background: transparent; color: #fff; font-weight: 700; font-size: 13px; cursor: pointer; white-space: nowrap; }
+#bar button:hover { background: #2c3c5c; }
+#bar button.quiet { border-color: transparent; color: #aeb7c8; }
+
+/* ---------- pop-ups ---------- */
+.overlay { position: fixed; inset: 0; background: rgba(29, 43, 70, .55); display: grid; place-items: center; padding: 16px; z-index: 10; }
+.dialog { background: #fff; border-radius: 18px; width: min(540px, 100%); max-height: calc(100vh - 32px); overflow: auto; padding: 28px; box-shadow: 0 24px 60px rgba(0,0,0,.3); }
+.dialog.wide { width: min(760px, 100%); }
+.eyebrow { display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 12px; letter-spacing: .06em; text-transform: uppercase; color: var(--orange-dark); margin-bottom: 8px; }
+.dots { display: flex; gap: 5px; }
+.dots i { width: 22px; height: 5px; border-radius: 3px; background: #e3e6ec; }
+.dots i.done { background: var(--orange); }
+.dots i.now { background: var(--orange-soft); outline: 1px solid var(--orange); }
+.dialog h1 { font-size: 26px; line-height: 1.2; font-weight: 800; }
+.dialog h2 { font-size: 22px; line-height: 1.25; font-weight: 800; }
+.dialog .lead { margin-top: 10px; font-size: 16px; }
+.goalbox { margin-top: 16px; padding: 16px 18px; border-radius: 12px; background: var(--orange-tint); border: 1px solid var(--orange-soft); color: var(--text); font-size: 17px; font-weight: 600; line-height: 1.5; }
+.goalbox b { color: var(--orange-dark); font-weight: 800; }
+.startnote { margin-top: 12px; font-size: 13px; color: var(--muted); }
+.foot { display: flex; justify-content: flex-end; gap: 10px; margin-top: 24px; flex-wrap: wrap; }
+.facts { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 18px; }
+.fact { border: 1px solid var(--border); border-radius: 12px; padding: 12px 14px; }
+.fact b { display: block; font-size: 20px; font-weight: 800; }
+.fact span { font-size: 12.5px; color: var(--muted); }
+.steps { list-style: none; padding: 0; display: grid; gap: 10px; margin-top: 18px; counter-reset: s; }
+.steps li { display: flex; gap: 12px; align-items: flex-start; color: var(--text-2); }
+.steps li::before { content: counter(s); counter-increment: s; flex: none; width: 24px; height: 24px; border-radius: 50%; background: var(--orange-soft); color: var(--orange-dark); font-weight: 800; font-size: 13px; display: grid; place-items: center; margin-top: 1px; }
+
+/* result banner inside the "task complete" pop-up */
+.badge { display: inline-flex; align-items: center; gap: 8px; padding: 4px 12px; border-radius: 999px; font-weight: 800; font-size: 13px; }
+.badge.ok { background: var(--green-bg); color: var(--green); }
+.badge.no { background: var(--amber-bg); color: var(--amber); }
+.stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 16px; }
+.q { margin-top: 20px; }
+.q > .ql { display: block; font-weight: 700; margin-bottom: 8px; }
+.q small { font-weight: 400; color: var(--muted); }
+.scale { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; }
+.opt { display: flex; align-items: center; justify-content: center; gap: 6px; border: 1px solid var(--border); border-radius: 10px; padding: 10px 4px; cursor: pointer; font-weight: 700; user-select: none; }
+.opt:has(input:checked) { border-color: var(--orange); background: var(--orange-tint); color: var(--orange-dark); }
+.opt input { position: absolute; opacity: 0; pointer-events: none; }
+.ends { display: flex; justify-content: space-between; font-size: 12px; color: var(--muted); margin-top: 6px; }
+textarea { width: 100%; min-height: 72px; resize: vertical; border: 1px solid var(--border); border-radius: 8px; padding: 10px 12px; background: #fff; }
+.err { color: var(--red); font-size: 13px; margin-top: 10px; }
+
+@media (max-width: 720px) {
+  #bar .goal, #bar .rec { display: none; }
+  #bar { justify-content: space-between; }
+  .facts, .stats { grid-template-columns: 1fr; }
+  .dialog { padding: 22px; }
+}
+</style>
+</head>
+<body>
+
+<div id="app">
+  <iframe id="proto" class="locked" title="OneWorkforce prototype" src="about:blank"></iframe>
+  <div id="bar" hidden>
+    <span class="step" id="barStep"></span>
+    <span class="goal" id="barGoal"></span>
+    <span class="rec"><i></i>Recording</span>
+    <span class="timer" id="timer">0:00</span>
+    <button type="button" id="viewTask">View task</button>
+    <button type="button" id="giveUp" class="quiet">I'm stuck</button>
+  </div>
+</div>
+
+<!-- welcome -->
+<div class="overlay" id="welcome">
+  <div class="dialog" role="dialog" aria-modal="true" aria-labelledby="wTitle">
+    <div class="eyebrow">OneWorkforce · Usability test</div>
+    <h1 id="wTitle">Can you find your way around?</h1>
+    <p class="lead">You'll do five short tasks in a prototype of the OneWorkforce admin app. We're testing the design, not you. If something is hard to find, that's useful to us.</p>
+    <div class="facts">
+      <div class="fact"><b>5 tasks</b><span>One goal each</span></div>
+      <div class="fact"><b>~8 min</b><span>1–2 minutes per task</span></div>
+      <div class="fact"><b>Nothing to type</b><span>Except names in the tasks</span></div>
+    </div>
+    <ol class="steps">
+      <li>Each task starts with a pop-up that tells you what to do. Read it, then press <b>Start</b>.</li>
+      <li>Explore the prototype like the real app. Your clicks, time and path are recorded automatically. Nothing you change is saved.</li>
+      <li>The task ends by itself when you reach the goal. Stuck? Press <b>I'm stuck</b> at the bottom.</li>
+    </ol>
+    <div class="q" style="margin-top:20px">
+      <label class="ql" for="pid">Your name or email <small>(optional, shared only with the research team)</small></label>
+      <input type="text" id="pid" autocomplete="name" style="width:100%;border:1px solid var(--border);border-radius:8px;padding:10px 12px">
+    </div>
+    <div class="foot"><button class="btn primary" id="begin">Begin</button></div>
+  </div>
+</div>
+
+<!-- task instruction -->
+<div class="overlay" id="taskDlg" hidden>
+  <div class="dialog" role="dialog" aria-modal="true" aria-labelledby="tTitle">
+    <div class="eyebrow"><span id="tStep"></span><span class="dots" id="tDots" aria-hidden="true"></span></div>
+    <h2 id="tTitle"></h2>
+    <div class="goalbox" id="tGoal"></div>
+    <p class="startnote" id="tStart"></p>
+    <div class="foot">
+      <button class="btn" id="resumeBtn" hidden>Back to the prototype</button>
+      <button class="btn primary" id="startBtn">Start task</button>
+    </div>
+  </div>
+</div>
+
+<!-- task finished -->
+<div class="overlay" id="doneDlg" hidden>
+  <form class="dialog" id="doneForm" role="dialog" aria-modal="true" aria-labelledby="dTitle" novalidate>
+    <span class="badge" id="dBadge"></span>
+    <h2 id="dTitle" style="margin-top:10px"></h2>
+    <div class="stats">
+      <div class="fact"><b id="dTime"></b><span>Time</span></div>
+      <div class="fact"><b id="dClicks"></b><span>Clicks</span></div>
+      <div class="fact"><b id="dSteps"></b><span>Screens visited</span></div>
+    </div>
+    <div class="q">
+      <span class="ql">How easy was that? <small>(required)</small></span>
+      <div class="scale" role="radiogroup" aria-label="Ease from 1 to 5">
+        <label class="opt"><input type="radio" name="ease" value="1">1</label>
+        <label class="opt"><input type="radio" name="ease" value="2">2</label>
+        <label class="opt"><input type="radio" name="ease" value="3">3</label>
+        <label class="opt"><input type="radio" name="ease" value="4">4</label>
+        <label class="opt"><input type="radio" name="ease" value="5">5</label>
+      </div>
+      <div class="ends"><span>Very hard</span><span>Very easy</span></div>
+    </div>
+    <div class="q">
+      <label class="ql" for="comment">Anything confusing or missing? <small>(optional)</small></label>
+      <textarea id="comment" placeholder="e.g. I expected to find this under…"></textarea>
+    </div>
+    <p class="err" id="dErr" hidden>Please pick a rating from 1 to 5.</p>
+    <div class="foot"><button type="submit" class="btn primary" id="dNext"></button></div>
+  </form>
+</div>
+
+<!-- confirm giving up -->
+<div class="overlay" id="stuckDlg" hidden>
+  <div class="dialog" role="dialog" aria-modal="true" aria-labelledby="sTitle">
+    <h2 id="sTitle">Stuck on this one?</h2>
+    <p class="lead">That's okay and useful to know. We'll record it and move on to the next task.</p>
+    <div class="foot"><button class="btn" id="stuckNo">Keep trying</button><button class="btn primary" id="stuckYes">Skip this task</button></div>
+  </div>
+</div>
+
+<!-- thank you (participants never see their results) -->
+<div class="overlay" id="thanks" hidden style="background:var(--bg)">
+  <div class="dialog" role="dialog" aria-modal="true" aria-labelledby="thTitle" style="text-align:center">
+    <span class="badge ok">✓ All done</span>
+    <h1 id="thTitle" style="margin-top:12px">Thank you!</h1>
+    <p class="lead">Your feedback helps us make OneWorkforce easier to use. You can close this page now.</p>
+    <p class="startnote" id="thanksNote" role="status"></p>
+    <div class="foot" id="fallback" hidden style="justify-content:center"><button class="btn" id="fallbackBtn">Download my answers to send by email</button></div>
+  </div>
+</div>
+
+<script>
+(function () {
+  'use strict';
+
+  /* The prototype, relative to this page. Keep both files in the same folder on GitHub Pages. */
+  var PROTOTYPE = 'owf-prototype-standalone.html';
+
+  /* Where answers are sent. Paste the Google Apps Script web-app URL here (setup steps are in google-apps-script.gs).
+     Leave empty to keep answers only in the participant's browser. */
+  var SUBMIT_URL = 'https://script.google.com/macros/s/AKfycbw2Bb3mvpkQeA44Dz-KZMGbMhyNC5vq2IoiKxs9vJB1vaOprxkc6bjrmqH7UpJebqO0/exec';
+
+  /* Each task: where it starts, what the user is asked to do, and how the page knows it was achieved.
+     `done(events)` receives the actions the prototype reported since the task started. */
+  var has = function (ev, type, test) { return ev.some(function (e) { return e.type === type && (!test || test(e)); }); };
+  var TASKS = [
+    {
+      id: 1, short: 'Find a site under a company', title: 'Find a site under a company',
+      goal: 'Mega Foods International has a company called <b>Mega Distribution Inc.</b> Open that company, then open its site <b>Cebu Mega Hub</b>.',
+      bar: 'Open Cebu Mega Hub, a site of Mega Distribution Inc. (Mega Foods International)',
+      start: 'You start on the Accounts search page.', hash: '',
+      done: function (ev) { return has(ev, 'open', function (e) { return e.rec === 'sites:s1'; }); }
+    },
+    {
+      id: 2, short: 'Find the zone with no sections', title: 'Find the zone with no sections',
+      goal: 'You are on the <b>Cebu Mega Hub</b> site. Open its <b>Zones / Sections</b> area and select the zone that has <b>no sections and no agents yet</b>.',
+      bar: 'Open Zones / Sections and select the zone with no sections or agents',
+      start: 'You start on the Cebu Mega Hub site page.', hash: '#open=sites:s1&ptab=actions',
+      done: function (ev) { return has(ev, 'pick-zone', function (e) { return /overflow area/i.test(e.zone || ''); }); }
+    },
+    {
+      id: 3, short: 'Create a section under a zone', title: 'Add a section to a zone',
+      goal: 'In the zone <b>Overflow Area</b>, add a new section called <b>Night Shift Gate</b>, then save it. Check that it appears in the list.',
+      bar: 'Add the section "Night Shift Gate" to the zone Overflow Area',
+      start: 'You start on the Cebu Mega Hub site page.', hash: '#open=sites:s1&ptab=actions',
+      done: function (ev) { return has(ev, 'section-added', function (e) { return /overflow area/i.test(e.zone) && /night shift gate/i.test(e.name); }); }
+    },
+    {
+      id: 4, short: 'Create a new zone', title: 'Create a new zone',
+      goal: 'Create a new zone called <b>Returns Bay</b> for this site, and make sure it shows up in the zone list.',
+      bar: 'Create a new zone called "Returns Bay"',
+      start: 'You start on the Cebu Mega Hub site page.', hash: '#open=sites:s1&ptab=actions',
+      done: function (ev) { return has(ev, 'zone-added', function (e) { return /returns bay/i.test(e.name); }); }
+    },
+    {
+      id: 5, short: 'Go from account to site', title: 'Go from an account to a site',
+      goal: 'Find the account <b>Megaline Logistics</b>. From its profile, open its company, then open the site <b>Clark Mega Depot</b>.',
+      bar: 'Megaline Logistics: open its company, then the site Clark Mega Depot',
+      start: 'You start on the Accounts search page.', hash: '',
+      done: function (ev) { return has(ev, 'open', function (e) { return e.rec === 'sites:s6'; }); }
+    }
+  ];
+
+  var $ = function (s) { return document.querySelector(s); };
+  var frame = $('#proto');
+  var S = { i: 0, running: false, t0: 0, tick: null, events: [], results: [], current: null, ready: false };
+
+  function fmt(ms) { var s = Math.round(ms / 1000), m = Math.floor(s / 60); return m + ':' + String(s % 60).padStart(2, '0'); }
+  function esc(s) { return String(s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
+  function stripTags(s) { return s.replace(/<[^>]+>/g, ''); }
+  function overlay(id) { ['welcome', 'taskDlg', 'doneDlg', 'stuckDlg'].forEach(function (x) { $('#' + x).hidden = x !== id; }); frame.classList.toggle('locked', !!id); }
+
+  /* ---------- flow ---------- */
+  $('#begin').addEventListener('click', function () { S.i = 0; S.results = []; showTask(); });
+
+  function loadPrototype() {
+    var t = TASKS[S.i];
+    S.ready = false;
+    /* a fresh query string reloads the prototype, so its in-memory data starts clean for every task */
+    frame.src = PROTOTYPE + '?task=' + t.id + '&r=' + Date.now() + t.hash;
+  }
+  function showTask() {
+    var t = TASKS[S.i];
+    stopClock(); S.running = false;
+    $('#bar').hidden = true;
+    $('#tStep').textContent = 'Task ' + t.id + ' of ' + TASKS.length;
+    $('#tDots').innerHTML = TASKS.map(function (_, n) { return '<i class="' + (n < S.i ? 'done' : n === S.i ? 'now' : '') + '"></i>'; }).join('');
+    $('#tTitle').textContent = t.title; $('#tGoal').innerHTML = t.goal; $('#tStart').textContent = t.start;
+    $('#resumeBtn').hidden = true; $('#startBtn').hidden = false;
+    loadPrototype();          /* shown behind the pop-up so people see where they will start */
+    overlay('taskDlg');
+    $('#startBtn').focus();
+  }
+  $('#startBtn').addEventListener('click', function () {
+    var t = TASKS[S.i];
+    S.events = []; S.t0 = Date.now(); S.running = true; S.viewed = 0;
+    $('#barStep').textContent = 'Task ' + t.id + '/' + TASKS.length; $('#barGoal').textContent = t.bar;
+    $('#bar').hidden = false; $('#timer').textContent = '0:00';
+    overlay(null); startClock();
+  });
+  /* "View task" reopens the instruction without stopping the clock */
+  $('#viewTask').addEventListener('click', function () {
+    S.viewed++; $('#startBtn').hidden = true; $('#resumeBtn').hidden = false; overlay('taskDlg'); $('#resumeBtn').focus();
+  });
+  $('#resumeBtn').addEventListener('click', function () { overlay(null); });
+  function startClock() { stopClock(); S.tick = setInterval(function () { $('#timer').textContent = fmt(Date.now() - S.t0); }, 500); }
+  function stopClock() { clearInterval(S.tick); }
+
+  /* ---------- tracking: events posted by the prototype ---------- */
+  window.addEventListener('message', function (e) {
+    var d = e.data;
+    if (e.source !== frame.contentWindow || !d || d.owf !== 1) return;
+    if (d.type === 'ready') { S.ready = true; return; }
+    if (!S.running) return;
+    S.events.push(d);
+    if (d.type !== 'click' && TASKS[S.i].done(S.events)) finish(true);
+  });
+
+  function describe(e) {
+    switch (e.type) {
+      case 'open': return 'Opened ' + e.rec.split(':')[0].replace(/s$/, '') + ': ' + e.name;
+      case 'tab': return 'Switched to tab "' + e.tab + '"';
+      case 'search': return e.q ? 'Searched for "' + e.q + '"' : 'Searched (empty)';
+      case 'pick-zone': return 'Selected zone "' + e.zone + '"';
+      case 'section-added': return 'Added section "' + e.name + '" to zone "' + e.zone + '"';
+      case 'zone-added': return 'Added zone "' + e.name + '"';
+    }
+    return e.type;
+  }
+  function summarise(success) {
+    var t = TASKS[S.i], ev = S.events, clicks = ev.filter(function (e) { return e.type === 'click'; });
+    var path = ev.filter(function (e) { return e.type !== 'click'; }).map(describe);
+    return {
+      task: t.id, name: t.short, success: success, seconds: Math.round((Date.now() - S.t0) / 1000),
+      clicks: clicks.length, deadClicks: clicks.filter(function (c) { return c.dead; }).length,
+      viewedInstructions: S.viewed, steps: path.length, path: path, ease: null, comment: ''
+    };
+  }
+
+  /* ---------- finish a task ---------- */
+  function finish(success) {
+    if (!S.running) return;
+    S.running = false; stopClock();
+    S.current = summarise(success);
+    var c = S.current, last = S.i === TASKS.length - 1;
+    $('#dBadge').className = 'badge ' + (success ? 'ok' : 'no');
+    $('#dBadge').textContent = success ? '✓ Goal reached' : 'Skipped';
+    $('#dTitle').textContent = success ? 'Nice work. Task ' + c.task + ' is done.' : 'No problem. Task ' + c.task + ' was skipped.';
+    $('#dTime').textContent = fmt(c.seconds * 1000); $('#dClicks').textContent = c.clicks; $('#dSteps').textContent = c.steps;
+    $('#doneForm').reset(); $('#dErr').hidden = true;
+    $('#dNext').textContent = last ? 'See my results' : 'Next task';
+    overlay('doneDlg');
+  }
+  $('#giveUp').addEventListener('click', function () { overlay('stuckDlg'); });
+  $('#stuckNo').addEventListener('click', function () { overlay(null); });
+  $('#stuckYes').addEventListener('click', function () { overlay(null); finish(false); });
+
+  $('#doneForm').addEventListener('submit', function (e) {
+    e.preventDefault();
+    var r = e.target.querySelector('input[name=ease]:checked');
+    if (!r) { $('#dErr').hidden = false; return; }
+    S.current.ease = +r.value; S.current.comment = $('#comment').value.trim();
+    S.results.push(S.current);
+    if (S.i < TASKS.length - 1) { S.i++; showTask(); }
+    else finishTest();
+  });
+
+  /* ---------- submitting ----------
+     Participants never see their results. The answers are sent to SUBMIT_URL (a Google Apps Script web app, see
+     google-apps-script.gs) and a copy is kept in this browser as a fallback. The organiser reads them in results.html. */
+  var QUEUE = 'owf-test-submissions';
+  function payload() {
+    var name = $('#pid').value.trim();
+    return { id: 'P' + Date.now().toString(36).toUpperCase() + Math.random().toString(36).slice(2, 5).toUpperCase(), participant: name,
+      takenAt: new Date().toISOString(), test: 'OneWorkforce navigation test', results: S.results };
+  }
+  function keepLocal(p) {
+    try { var q = JSON.parse(localStorage.getItem(QUEUE) || '[]'); q.push(p); localStorage.setItem(QUEUE, JSON.stringify(q)); } catch (e) { /* storage unavailable */ }
+  }
+  function send(p) {
+    if (!SUBMIT_URL) return Promise.resolve('local');
+    return fetch(SUBMIT_URL, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify(p) })
+      .then(function () { return 'sent'; }, function () { return 'failed'; });
+  }
+  function finishTest() {
+    overlay(null); $('#bar').hidden = true; frame.src = 'about:blank';
+    var p = payload(); S.sent = p; keepLocal(p);
+    $('#thanks').hidden = false; $('#thanksNote').textContent = 'Saving your answers\u2026'; $('#fallback').hidden = true;
+    send(p).then(function (r) {
+      $('#thanksNote').textContent = r === 'failed' ? 'We couldn\u2019t send your answers automatically.' : 'Your answers have been recorded.';
+      $('#fallback').hidden = r !== 'failed';
+    });
+  }
+  $('#fallbackBtn').addEventListener('click', function () {
+    var a = document.createElement('a'); a.href = URL.createObjectURL(new Blob([JSON.stringify(S.sent, null, 2)], { type: 'application/json' }));
+    a.download = 'owf-test-' + S.sent.id + '.json'; document.body.appendChild(a); a.click(); a.remove();
+  });
+})();
+</script>
+</body>
+</html>

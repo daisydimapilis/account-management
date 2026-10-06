@@ -1,0 +1,275 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Navigation Test Results</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Mulish:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --text: #1d2b46; --text-2: #4c5870; --muted: #788090; --border: #dbdfe5; --bg: #f7f8fa;
+  --orange: #ef752e; --orange-dark: #da6427; --orange-soft: #ffe3cc; --orange-tint: #fff4ec;
+  --green: #0f8c30; --green-bg: #ecfbf1; --red: #c90003; --red-bg: #feeeec; --amber: #b17500; --amber-bg: #fffaf0;
+  --font: "Mulish", "Segoe UI", system-ui, -apple-system, sans-serif;
+}
+* { box-sizing: border-box; margin: 0; }
+body { font-family: var(--font); color: var(--text); background: var(--bg); font-size: 14.5px; line-height: 1.5; }
+button, input, select { font: inherit; color: inherit; }
+[hidden] { display: none !important; }
+.wrap { max-width: 1180px; margin: 0 auto; padding: 32px 20px 64px; }
+h1 { font-size: 28px; font-weight: 800; }
+h2 { font-size: 18px; font-weight: 800; }
+p { color: var(--text-2); }
+.eyebrow { font-weight: 800; font-size: 12px; letter-spacing: .06em; text-transform: uppercase; color: var(--orange-dark); margin-bottom: 6px; }
+.top { display: flex; justify-content: space-between; align-items: flex-end; gap: 16px; flex-wrap: wrap; }
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; height: 38px; padding: 0 16px; border-radius: 8px; border: 1px solid var(--border); background: #fff; font-weight: 700; font-size: 13.5px; cursor: pointer; white-space: nowrap; }
+.btn:hover { background: #f3f5f8; }
+.btn.primary { background: var(--orange); border-color: var(--orange); color: #fff; }
+.btn.primary:hover { background: var(--orange-dark); border-color: var(--orange-dark); }
+.btn:focus-visible, input:focus-visible, select:focus-visible, summary:focus-visible { outline: 2px solid var(--orange); outline-offset: 2px; }
+.card { background: #fff; border: 1px solid var(--border); border-radius: 14px; padding: 20px 22px; margin-top: 16px; }
+.card h2 { margin-bottom: 4px; }
+.facts { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-top: 18px; }
+.fact { background: #fff; border: 1px solid var(--border); border-radius: 12px; padding: 14px 16px; }
+.fact b { display: block; font-size: 24px; font-weight: 800; }
+.fact span { font-size: 12.5px; color: var(--muted); }
+.tablewrap { overflow-x: auto; margin-top: 8px; }
+table { width: 100%; border-collapse: collapse; font-size: 14px; }
+th, td { text-align: left; padding: 10px 10px; border-top: 1px solid #eef0f3; vertical-align: top; }
+th { font-size: 11.5px; color: var(--muted); text-transform: uppercase; letter-spacing: .04em; border-top: 0; white-space: nowrap; }
+td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; }
+tr.p { cursor: pointer; }
+tr.p:hover td { background: #fafbfc; }
+tr.detail td { background: #fafbfc; padding: 14px 16px 18px; }
+.tag { display: inline-block; padding: 1px 9px; border-radius: 999px; font-size: 12px; font-weight: 700; white-space: nowrap; }
+.tag.ok { background: var(--green-bg); color: var(--green); }
+.tag.no { background: var(--red-bg); color: var(--red); }
+.tag.mid { background: var(--amber-bg); color: var(--amber); }
+.bar { display: inline-block; height: 8px; border-radius: 4px; background: var(--orange); vertical-align: middle; margin-right: 8px; }
+.barbg { display: inline-block; width: 90px; height: 8px; border-radius: 4px; background: #eceff3; vertical-align: middle; margin-right: 8px; overflow: hidden; }
+.barbg .bar { display: block; margin: 0; }
+.tools { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; margin-top: 14px; }
+.tools input[type=text], .tools input[type=password] { height: 38px; border: 1px solid var(--border); border-radius: 8px; padding: 0 12px; background: #fff; min-width: 240px; }
+.tools label.file { display: inline-flex; }
+.cols { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 12px; }
+.tc { border: 1px solid var(--border); border-radius: 10px; padding: 10px 12px; background: #fff; }
+.tc b { display: block; }
+.tc small { color: var(--muted); }
+ol.trace { margin: 6px 0 0; padding-left: 18px; color: var(--text-2); font-size: 13px; }
+.cm { margin-top: 6px; font-style: italic; color: var(--text-2); }
+.empty { text-align: center; padding: 40px 12px; color: var(--muted); }
+.note { font-size: 13px; color: var(--muted); margin-top: 8px; }
+.msg { margin-top: 10px; font-size: 13px; }
+.msg.err { color: var(--red); }
+@media (max-width: 720px) { .facts { grid-template-columns: 1fr 1fr; } h1 { font-size: 24px; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="top">
+    <div>
+      <div class="eyebrow">OneWorkforce · Usability test</div>
+      <h1>Navigation test results</h1>
+      <p>All participants in one list. Click a participant to see their tasks, paths and comments.</p>
+    </div>
+    <div class="tools" style="margin:0">
+      <button class="btn" id="refresh">Refresh</button>
+      <button class="btn primary" id="csv">Export CSV</button>
+    </div>
+  </div>
+
+  <div class="card" id="source">
+    <h2>Data source</h2>
+    <p>Answers are collected in your Google Sheet. Connect once on this device, or import files participants sent you.</p>
+    <div class="tools">
+      <input type="text" id="url" placeholder="Apps Script web app URL" aria-label="Apps Script web app URL">
+      <input type="password" id="key" placeholder="Secret" aria-label="Secret" autocomplete="off">
+      <button class="btn primary" id="connect">Connect to Google Sheet</button>
+      <label class="btn file" for="files">Import JSON files<input id="files" type="file" accept=".json,application/json" multiple hidden></label>
+    </div>
+    <p class="msg" id="msg" role="status"></p>
+    <p class="note">The secret and URL stay in this browser only. Submissions saved in this browser (for example when testing) are included automatically.</p>
+  </div>
+
+  <div id="out" hidden>
+    <div class="facts" id="facts"></div>
+
+    <div class="card">
+      <h2>Task by task</h2>
+      <p>Across all participants who attempted the task.</p>
+      <div class="tablewrap"><table>
+        <thead><tr><th>Task</th><th>Success rate</th><th class="num">Avg time</th><th class="num">Avg clicks</th><th class="num">Avg missed clicks</th><th class="num">Avg ease (1–5)</th></tr></thead>
+        <tbody id="taskRows"></tbody>
+      </table></div>
+    </div>
+
+    <div class="card">
+      <h2>Participants</h2>
+      <div class="tools" style="margin-top:6px">
+        <input type="text" id="filter" placeholder="Filter by name or ID" aria-label="Filter participants">
+        <select id="sort" aria-label="Sort participants">
+          <option value="new">Newest first</option><option value="old">Oldest first</option>
+          <option value="done">Most tasks completed</option><option value="time">Slowest overall</option>
+        </select>
+      </div>
+      <div class="tablewrap"><table id="ptable">
+        <thead><tr><th>Participant</th><th>Date</th><th>Completed</th><th class="num">Total time</th><th class="num">Clicks</th><th class="num">Avg ease</th><th>Tasks</th></tr></thead>
+        <tbody id="pRows"></tbody>
+      </table></div>
+    </div>
+
+    <div class="card">
+      <h2>Comments</h2>
+      <div id="comments"></div>
+    </div>
+  </div>
+  <div class="card empty" id="empty">No results yet. Connect your Google Sheet or import files above.</div>
+</div>
+
+<script>
+(function () {
+  'use strict';
+  /* Optional: paste your Apps Script URL here so it is pre-filled for you. The secret is never stored in this file. */
+  var DEFAULT_URL = 'https://script.google.com/macros/s/AKfycbw2Bb3mvpkQeA44Dz-KZMGbMhyNC5vq2IoiKxs9vJB1vaOprxkc6bjrmqH7UpJebqO0/exec';
+
+  var QUEUE = 'owf-test-submissions', CFG = 'owf-results-config';
+  var $ = function (s) { return document.querySelector(s); };
+  var all = [];                 /* every submission, de-duplicated by id */
+  var TASK_NAMES = {};
+
+  function esc(s) { return String(s == null ? '' : s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
+  function fmt(sec) { sec = Math.round(sec); return Math.floor(sec / 60) + ':' + String(sec % 60).padStart(2, '0'); }
+  function avg(a) { return a.length ? a.reduce(function (n, x) { return n + x; }, 0) / a.length : 0; }
+  function store(fn) { try { return fn(localStorage); } catch (e) { return null; } }
+  function say(t, err) { var m = $('#msg'); m.textContent = t; m.className = 'msg' + (err ? ' err' : ''); }
+
+  /* ---------- loading ---------- */
+  function add(list) {
+    var seen = {}; all.forEach(function (p) { seen[p.id] = 1; });
+    list.forEach(function (p) { if (p && p.id && p.results && !seen[p.id]) { all.push(p); seen[p.id] = 1; } });
+  }
+  function loadLocal() { add(store(function (s) { return JSON.parse(s.getItem(QUEUE) || '[]'); }) || []); }
+  function loadRemote(url, key) {
+    say('Loading…');
+    return fetch(url + (url.indexOf('?') < 0 ? '?' : '&') + 'key=' + encodeURIComponent(key))
+      .then(function (r) { return r.json(); })
+      .then(function (d) {
+        if (d.error) throw new Error(d.error === 'unauthorized' ? 'Wrong secret.' : d.error);
+        add(d.submissions || []); say('Loaded ' + (d.submissions || []).length + ' submissions from the Sheet.');
+      })
+      .catch(function (e) { say('Couldn’t load from the Sheet: ' + e.message + ' Check the URL and secret.', true); });
+  }
+  function reload() {
+    all = []; loadLocal();
+    var c = store(function (s) { return JSON.parse(s.getItem(CFG) || 'null'); });
+    var p = c && c.url ? loadRemote(c.url, c.key || '') : Promise.resolve();
+    return p.then(render);
+  }
+  $('#connect').addEventListener('click', function () {
+    var url = $('#url').value.trim(), key = $('#key').value;
+    if (!url) { say('Paste the Apps Script web app URL first.', true); return; }
+    store(function (s) { s.setItem(CFG, JSON.stringify({ url: url, key: key })); });
+    reload();
+  });
+  $('#refresh').addEventListener('click', reload);
+  $('#files').addEventListener('change', function (e) {
+    var files = [].slice.call(e.target.files), n = 0;
+    Promise.all(files.map(function (f) {
+      return f.text().then(function (t) { try { var d = JSON.parse(t); add(Array.isArray(d) ? d : d.submissions || [d]); n++; } catch (err) { /* skip bad file */ } });
+    })).then(function () { say('Imported ' + n + ' of ' + files.length + ' files.'); render(); e.target.value = ''; });
+  });
+
+  /* ---------- rendering ---------- */
+  function totals(p) {
+    var r = p.results || [];
+    return { done: r.filter(function (x) { return x.success; }).length, n: r.length, secs: r.reduce(function (n, x) { return n + x.seconds; }, 0),
+      clicks: r.reduce(function (n, x) { return n + x.clicks; }, 0), ease: avg(r.map(function (x) { return x.ease; }).filter(Boolean)) };
+  }
+  function render() {
+    $('#empty').hidden = all.length > 0; $('#out').hidden = !all.length;
+    if (!all.length) return;
+    all.forEach(function (p) { p.results.forEach(function (r) { TASK_NAMES[r.task] = r.name; }); });
+    var T = all.map(totals), full = T.filter(function (t) { return t.done === t.n; }).length;
+    $('#facts').innerHTML =
+      '<div class="fact"><b>' + all.length + '</b><span>Participants</span></div>' +
+      '<div class="fact"><b>' + Math.round(100 * avg(T.map(function (t) { return t.n ? t.done / t.n : 0; }))) + '%</b><span>Average task success</span></div>' +
+      '<div class="fact"><b>' + full + ' of ' + all.length + '</b><span>Completed all tasks</span></div>' +
+      '<div class="fact"><b>' + fmt(avg(T.map(function (t) { return t.secs; }))) + '</b><span>Average total time</span></div>';
+
+    /* per task */
+    var ids = Object.keys(TASK_NAMES).map(Number).sort(function (a, b) { return a - b; });
+    $('#taskRows').innerHTML = ids.map(function (id) {
+      var rs = []; all.forEach(function (p) { p.results.forEach(function (r) { if (r.task === id) rs.push(r); }); });
+      var rate = rs.length ? rs.filter(function (r) { return r.success; }).length / rs.length : 0;
+      return '<tr><td><b>' + id + '.</b> ' + esc(TASK_NAMES[id]) + '</td>' +
+        '<td><span class="barbg"><span class="bar" style="width:' + Math.round(rate * 100) + '%"></span></span>' + Math.round(rate * 100) + '% <small style="color:var(--muted)">(' + rs.filter(function (r) { return r.success; }).length + '/' + rs.length + ')</small></td>' +
+        '<td class="num">' + fmt(avg(rs.map(function (r) { return r.seconds; }))) + '</td>' +
+        '<td class="num">' + avg(rs.map(function (r) { return r.clicks; })).toFixed(1) + '</td>' +
+        '<td class="num">' + avg(rs.map(function (r) { return r.deadClicks || 0; })).toFixed(1) + '</td>' +
+        '<td class="num">' + avg(rs.map(function (r) { return r.ease; }).filter(Boolean)).toFixed(1) + '</td></tr>';
+    }).join('');
+
+    renderParticipants();
+
+    /* comments */
+    var cm = [];
+    all.forEach(function (p) { p.results.forEach(function (r) { if (r.comment) cm.push({ who: p.participant || p.id, task: r.task, name: r.name, text: r.comment }); }); });
+    $('#comments').innerHTML = cm.length ? cm.map(function (c) {
+      return '<p style="margin-top:10px"><b>' + esc(c.who) + '</b> <small style="color:var(--muted)">on task ' + c.task + ' (' + esc(c.name) + ')</small><br>“' + esc(c.text) + '”</p>';
+    }).join('') : '<p class="note">No comments left yet.</p>';
+  }
+
+  function renderParticipants() {
+    var q = $('#filter').value.trim().toLowerCase(), sort = $('#sort').value;
+    var list = all.filter(function (p) { return !q || ((p.participant || '') + ' ' + p.id).toLowerCase().indexOf(q) >= 0; });
+    list.sort(function (a, b) {
+      var ta = totals(a), tb = totals(b);
+      return sort === 'old' ? a.takenAt.localeCompare(b.takenAt) : sort === 'done' ? tb.done - ta.done : sort === 'time' ? tb.secs - ta.secs : b.takenAt.localeCompare(a.takenAt);
+    });
+    $('#pRows').innerHTML = list.map(function (p) {
+      var t = totals(p), d = new Date(p.takenAt);
+      var dots = p.results.map(function (r) { return '<span class="tag ' + (r.success ? 'ok' : 'no') + '" title="Task ' + r.task + ': ' + esc(r.name) + '">' + r.task + (r.success ? ' ✓' : ' ✕') + '</span>'; }).join(' ');
+      var detail = '<div class="cols">' + p.results.map(function (r) {
+        return '<div class="tc"><b>' + r.task + '. ' + esc(r.name) + '</b>' +
+          '<span class="tag ' + (r.success ? 'ok' : 'no') + '">' + (r.success ? 'Completed' : 'Skipped') + '</span> <small>' + fmt(r.seconds) + ' · ' + r.clicks + ' clicks (' + (r.deadClicks || 0) + ' missed) · ease ' + r.ease + '/5' + (r.viewedInstructions ? ' · re-read the task ' + r.viewedInstructions + '×' : '') + '</small>' +
+          (r.path && r.path.length ? '<ol class="trace">' + r.path.map(function (s) { return '<li>' + esc(s) + '</li>'; }).join('') + '</ol>' : '<div class="note">No navigation recorded.</div>') +
+          (r.comment ? '<div class="cm">“' + esc(r.comment) + '”</div>' : '') + '</div>';
+      }).join('') + '</div>';
+      return '<tr class="p" tabindex="0" data-id="' + esc(p.id) + '"><td><b>' + esc(p.participant || 'Anonymous') + '</b><br><small style="color:var(--muted)">' + esc(p.id) + '</small></td>' +
+        '<td>' + d.toLocaleDateString() + '<br><small style="color:var(--muted)">' + d.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) + '</small></td>' +
+        '<td>' + t.done + ' of ' + t.n + '</td><td class="num">' + fmt(t.secs) + '</td><td class="num">' + t.clicks + '</td><td class="num">' + (t.ease ? t.ease.toFixed(1) : '—') + '</td><td>' + dots + '</td></tr>' +
+        '<tr class="detail" hidden data-for="' + esc(p.id) + '"><td colspan="7">' + detail + '</td></tr>';
+    }).join('') || '<tr><td colspan="7" class="empty">No participants match.</td></tr>';
+  }
+  function toggle(row) {
+    var d = row.nextElementSibling; if (d && d.classList.contains('detail')) d.hidden = !d.hidden;
+  }
+  $('#pRows').addEventListener('click', function (e) { var r = e.target.closest('tr.p'); if (r) toggle(r); });
+  $('#pRows').addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') { var r = e.target.closest('tr.p'); if (r) { e.preventDefault(); toggle(r); } } });
+  $('#filter').addEventListener('input', renderParticipants);
+  $('#sort').addEventListener('change', renderParticipants);
+
+  /* ---------- export: one row per participant and task ---------- */
+  function cell(v) { return '"' + String(v == null ? '' : v).replace(/"/g, '""') + '"'; }
+  $('#csv').addEventListener('click', function () {
+    var h = ['participantId', 'participant', 'date', 'task', 'taskName', 'success', 'seconds', 'clicks', 'missedClicks', 'rereadInstructions', 'ease', 'path', 'comment'];
+    var rows = [];
+    all.forEach(function (p) { p.results.forEach(function (r) {
+      rows.push([p.id, p.participant, p.takenAt, r.task, r.name, r.success ? 'yes' : 'no', r.seconds, r.clicks, r.deadClicks || 0, r.viewedInstructions || 0, r.ease, (r.path || []).join(' > '), r.comment].map(cell).join(','));
+    }); });
+    var a = document.createElement('a');
+    a.href = URL.createObjectURL(new Blob(['﻿' + h.join(',') + '\n' + rows.join('\n') + '\n'], { type: 'text/csv' }));
+    a.download = 'owf-navigation-test-results.csv'; document.body.appendChild(a); a.click(); a.remove();
+  });
+
+  /* ---------- start ---------- */
+  var c = store(function (s) { return JSON.parse(s.getItem(CFG) || 'null'); });
+  $('#url').value = (c && c.url) || DEFAULT_URL; if (c && c.key) $('#key').value = c.key;
+  reload();
+})();
+</script>
+</body>
+</html>
