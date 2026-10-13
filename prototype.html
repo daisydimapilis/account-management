@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>OneWorkforce – Accounts, Companies &amp; Sites (Prototype)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600&family=Mulish:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<div id="stage">
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <img class="logo" src="assets/owf-logo.png" data-img="owf-logo.png" alt="OneWorkforce">
+    <a class="nav-item" style="top:86px"><i data-i="dashboard"></i>Dashboard</a>
+
+    <div class="nav-label" style="top:147px">People Management</div>
+    <a class="nav-item muted" style="top:174px"><i data-i="onboarding"></i>Onboarding</a>
+    <a class="nav-item" style="top:220px"><i data-i="agents"></i><span class="grow">Agents</span><i data-i="chevronDown"></i></a>
+    <a class="nav-item muted" style="top:266px"><i data-i="employees"></i>Employees</a>
+    <a class="nav-item muted" style="top:312px"><i data-i="recruitment"></i><span class="grow">Recruitment</span><i data-i="chevronDown"></i></a>
+
+    <div class="nav-label" style="top:373px">Tools</div>
+    <a class="nav-item" style="top:400px"><i data-i="approval"></i>Approval Requests</a>
+    <a class="nav-item muted" style="top:446px"><i data-i="mapping"></i>Mapping</a>
+    <a class="nav-item" style="top:492px"><i data-i="reports"></i><span class="grow">Reports &amp; Analytics</span><i data-i="chevronDown"></i></a>
+
+    <div class="nav-label" style="top:553px">Setup</div>
+    <a class="nav-item active" style="top:580px" id="nav-accounts"><i data-i="accounts"></i>Accounts</a>
+    <a class="nav-item muted" style="top:626px"><i data-i="rates"></i>Rates</a>
+    <a class="nav-item muted" style="top:672px"><i data-i="approver"></i>Approver</a>
+    <a class="nav-item muted" style="top:718px"><i data-i="holiday"></i>Holiday</a>
+    <a class="nav-item muted" style="top:764px"><i data-i="devicemap"></i>Device Mapping</a>
+    <a class="nav-item muted" style="top:810px"><i data-i="breakpolicy"></i>Break Policy</a>
+
+    <div class="nav-theme">Switch to Dark Theme</div>
+    <div class="nav-moon"><i data-i="moon"></i></div>
+  </aside>
+
+  <!-- Top bar -->
+  <header class="topbar">
+    <i class="bell" data-i="bell"></i>
+    <div class="who"><b>Alexandra Rio</b><span>Platform Admin</span></div>
+    <img class="avatar" src="assets/avatar-alexandra.png" data-img="avatar-alexandra.png" alt="">
+    <i class="chev" data-i="chevronDown"></i>
+  </header>
+
+  <!-- Search column -->
+  <div class="search-title">Search</div>
+  <button class="search-add" id="btn-add" title="Create new"><i data-i="plus"></i></button>
+  <section class="search-card">
+    <div class="search-box" id="search-box">
+      <input id="q" type="text" placeholder="Search accounts, companies, sites, or codes" autocomplete="off" spellcheck="false">
+      <span class="spinner-sm" id="q-spin" hidden></span>
+      <button class="q-clear" id="q-clear" hidden aria-label="Clear search">✕</button>
+      <i class="s-ic" data-i="search"></i>
+    </div>
+    <div class="enter-hint" id="enter-hint" hidden>Press <kbd>ENTER</kbd> to search</div>
+    <div class="s-tabs" id="s-tabs">
+      <button class="s-tab" data-tab="accounts">Accounts <span class="n" id="n-accounts">0</span></button>
+      <button class="s-tab active" data-tab="companies">Companies <span class="n" id="n-companies">0</span></button>
+      <button class="s-tab" data-tab="sites">Sites <span class="n" id="n-sites">0</span></button>
+    </div>
+    <div class="s-divider"></div>
+    <div class="s-body" id="s-body"></div>
+  </section>
+
+  <!-- Main -->
+  <nav class="crumbs" id="crumbs"></nav>
+  <main class="panel" id="panel"></main>
+</div>
+
+<!-- Prototype guide (not part of the design) -->
+<aside id="guide">
+  <button id="guide-x" aria-label="Close guide">✕</button>
+  <b>Prototype guide</b>
+  <ol>
+    <li>Click the search box and type <em>Mega</em>, then press <em>Enter</em>.</li>
+    <li>Switch between Accounts, Companies and Sites.</li>
+    <li>Click a result to open its profile. The side panel then shows the selected account / company / site — use <em>Clear</em> to start over.</li>
+    <li>Parent links inside a profile jump to the related record.</li>
+  </ol>
+  <div class="row2"><button id="guide-demo">Auto-type “Mega”</button><button class="ghost" id="guide-reset">Reset</button></div>
+</aside>
+
+<script src="assets/images.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
