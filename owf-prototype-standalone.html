@@ -422,6 +422,94 @@ svg { display: block; flex: none; }
 .zt-row .c-ag { width: 90px; }
 .zt-row .c-auto { color: var(--text-muted); font-style: italic; }
 
+/* Company > Approval Workflow: static setup guide */
+.guide { display: flex; flex-direction: column; gap: 14px; padding: 16px 20px; background: #fff4ec; border: 1px solid var(--orange-soft); border-radius: 8px; }
+.guide-head { display: flex; align-items: flex-start; gap: 12px; }
+.guide-ic { flex: none; width: 36px; height: 36px; border-radius: 50%; background: var(--orange-soft); display: grid; place-items: center; color: var(--text-dark); }
+.guide-ic svg { width: 20px; height: 20px; }
+.guide-tx { flex: 1; min-width: 0; }
+.guide-tx h3 { font-size: 16px; font-weight: 700; color: var(--text-dark); }
+.guide-tx p { margin-top: 2px; font-size: 13px; color: var(--text-normal); }
+.guide-x { flex: none; width: 24px; height: 24px; display: grid; place-items: center; background: none; border: 0; color: var(--text-dark); cursor: pointer; border-radius: 6px; }
+.guide-x:hover { background: rgba(0,0,0,.06); }
+.guide-x svg { width: 18px; height: 18px; }
+.guide-steps { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+.guide-steps li { display: flex; align-items: flex-start; gap: 10px; padding: 12px; background: #fff; border: 1px solid var(--border); border-radius: 8px; }
+.guide-steps .n { flex: none; width: 26px; height: 26px; border-radius: 50%; background: var(--orange-soft); color: var(--orange); font-size: 13px; font-weight: 700; display: grid; place-items: center; }
+.guide-steps b { display: block; font-size: 14px; font-weight: 700; color: var(--text-dark); }
+.guide-steps li span:not(.n) { display: block; margin-top: 2px; font-size: 12px; color: var(--text-muted); }
+.guide-act { display: flex; }
+.guide-gone { padding: 14px 0; font-size: 13px; color: var(--text-muted); }
+
+/* Company > Approval Workflow: list of attached workflows */
+.wf { margin-top: 20px; display: flex; flex-direction: column; gap: 20px; }
+.wf-bar { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+.wf-filter { display: flex; align-items: center; gap: 8px; font-size: 14px; font-weight: 500; color: var(--text-dark); }
+.wf-filter svg { width: 16px; height: 16px; }
+.wf select, .wfd select { height: 40px; padding: 0 36px 0 14px; border: 1px solid var(--border); border-radius: 8px; background: #ebeff6 url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' fill='none' stroke='%234c5870' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 8l5 5l5-5'/%3E%3C/svg%3E") no-repeat right 10px center; appearance: none; font: inherit; font-size: 14px; color: var(--text-normal); cursor: pointer; }
+.wf-filter select { width: 330px; }
+.wf select:focus-visible, .wfd select:focus-visible { outline: 2px solid var(--orange); outline-offset: 1px; }
+.wf-table { border: 1px solid var(--border); border-radius: 8px; overflow: hidden; background: #fff; }
+.wf-row { display: grid; grid-template-columns: 2.4fr .95fr 1.7fr 1.25fr .95fr 1.4fr 34px; min-height: 47px; border-bottom: 1px solid var(--border); }
+.wf-row:last-child { border-bottom: 0; }
+.wf-head { background: #ebeff6; }
+.wf-th, .wf-td { display: flex; align-items: center; gap: 8px; padding: 0 12px; border-right: 1px solid var(--border); font-size: 14px; min-width: 0; }
+.wf-th { height: 47px; justify-content: space-between; background: none; border-top: 0; border-bottom: 0; border-left: 0; font-weight: 700; color: var(--text-dark); text-align: left; cursor: pointer; font-family: inherit; }
+.wf-th svg { width: 16px; height: 16px; flex: none; }
+.wf-th:hover { background: rgba(0,0,0,.04); }
+.wf-td { color: var(--text-dark); }
+.wf-row > :last-child { border-right: 0; }
+.wf-kebab { justify-content: center; padding: 0 5px; }
+.wf-kebab .ib svg { width: 20px; height: 20px; }
+.wf-row.new { background: #fff8f1; }
+.wf-new { flex: none; margin-left: auto; padding: 1px 8px; border-radius: 999px; background: var(--orange); color: #fff; font-size: 11px; font-weight: 700; }
+.wf-none { padding: 28px; text-align: center; color: var(--text-muted); font-size: 14px; }
+.wf-foot { display: flex; align-items: center; justify-content: space-between; gap: 16px; font-size: 14px; color: var(--text-normal); }
+.wf-lines { display: flex; align-items: center; gap: 10px; }
+.wf-lines select { height: 36px; width: 78px; }
+.wf-pager { display: flex; gap: 4px; }
+.wf-pager button { min-width: 30px; height: 30px; padding: 0 8px; border: 1px solid var(--border); border-radius: 4px; background: #fff; font: inherit; font-size: 12px; color: var(--text-dark); }
+.wf-pager button:disabled { color: var(--text-light); }
+.wf-pager .on { background: var(--orange); border-color: var(--orange); color: #fff; }
+/* attach workflow drawer */
+.wfd-back { position: absolute; inset: 0; z-index: 60; background: rgba(0,0,0,.5); }
+.wfd { position: absolute; top: 16px; right: 8px; bottom: 16px; width: 800px; max-width: calc(100% - 16px); display: flex; flex-direction: column; background: #fff; border-radius: 8px; box-shadow: -4px 0 24px rgba(0,0,0,.18); overflow: hidden; }
+.wfd header { display: flex; align-items: center; justify-content: space-between; padding: 18px 20px; }
+.wfd h2 { display: flex; align-items: center; gap: 12px; font-size: 24px; font-weight: 500; color: var(--text-normal); }
+.wfd h2 svg { width: 24px; height: 24px; }
+.wfd-body { flex: 1; overflow: auto; padding: 8px 20px 24px; display: flex; flex-direction: column; gap: 24px; }
+.wfd-f { display: flex; flex-direction: column; gap: 8px; }
+.wfd-f label { display: flex; align-items: center; gap: 6px; font-size: 14px; font-weight: 500; color: var(--text-dark); }
+.wfd-f label svg { width: 16px; height: 16px; }
+.wfd-f label i { color: var(--red); font-style: normal; }
+.wfd select { height: 48px; width: 100%; }
+.wfd select:disabled { opacity: .6; background-color: #f7f8fa; cursor: not-allowed; }
+.wfd-f small { display: flex; align-items: center; gap: 6px; font-size: 12px; color: var(--text-muted); }
+.wfd-f small svg { width: 12px; height: 12px; }
+.wfd hr { border: 0; border-top: 1px solid var(--border); width: 100%; }
+.wfd h3 { display: flex; align-items: center; gap: 12px; font-size: 20px; font-weight: 500; color: var(--text-normal); margin-bottom: -8px; }
+.wfd h3 svg { width: 20px; height: 20px; }
+.wfd-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; padding: 12px; border: 1px solid var(--border); border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,.06); }
+.wfd-cell { display: flex; flex-direction: column; gap: 6px; padding: 12px 16px; background: #fafbfc; border-radius: 4px; }
+.wfd-cell span { display: flex; align-items: center; gap: 8px; font-size: 12px; color: var(--text-muted); }
+.wfd-cell span svg { width: 14px; height: 14px; }
+.wfd-cell b { font-size: 14px; font-weight: 400; color: var(--text-normal); }
+.wfd-cell b.or { color: var(--orange); font-weight: 500; }
+.wfd-seq { display: flex; align-items: center; gap: 16px; padding: 20px; border: 1px solid var(--border); border-radius: 8px; }
+.wfd-seq b { font-size: 15px; font-weight: 500; color: var(--text-dark); }
+.wfd-n { flex: none; width: 40px; height: 40px; border-radius: 50%; display: grid; place-items: center; color: #fff; font-size: 20px; font-weight: 700; }
+.wfd-n.g { background: var(--green); }
+.wfd-n.b { background: #2d7de8; }
+.wfd-tags { display: flex; gap: 4px; margin-top: 6px; }
+.wfd-tag { padding: 2px 10px; border: 1px solid var(--text-dark); border-radius: 999px; background: #fff; font-size: 11px; font-weight: 500; color: var(--text-dark); }
+.wfd-tag.g { border-color: var(--green); color: var(--green); background: #ecfbf1; }
+.wfd-tag.b { border-color: #2d7de8; color: #2d7de8; background: #ebf3ff; }
+.wfd-empty { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 16px; color: var(--text-muted); font-size: 14px; }
+.wfd-empty svg { width: 32px; height: 32px; color: #c7ccd4; }
+.wfd footer { display: flex; gap: 8px; padding: 16px 20px; border-top: 1px solid var(--border); }
+.wfd footer .btn { flex: 1; justify-content: center; }
+.wfd footer .btn:disabled { opacity: .5; cursor: not-allowed; }
+
 </style>
 </head>
 <body>
@@ -541,6 +629,19 @@ const ICONS = {
   breakpolicy: 'M9 5H7C6.46957 5 5.96086 5.21071 5.58579 5.58579C5.21071 5.96086 5 6.46957 5 7V19C5 19.5304 5.21071 20.0391 5.58579 20.4142C5.96086 20.7893 6.46957 21 7 21H17C17.5304 21 18.0391 20.7893 18.4142 20.4142C18.7893 20.0391 19 19.5304 19 19V7C19 6.46957 18.7893 5.96086 18.4142 5.58579C18.0391 5.21071 17.5304 5 17 5H15M9 5C9 4.46957 9.21071 3.96086 9.58579 3.58579C9.96086 3.21071 10.4696 3 11 3H13C13.5304 3 14.0391 3.21071 14.4142 3.58579C14.7893 3.96086 15 4.46957 15 5M9 5C9 5.53043 9.21071 6.03914 9.58579 6.41421C9.96086 6.78929 10.4696 7 11 7H13C13.5304 7 14.0391 6.78929 14.4142 6.41421C14.7893 6.03914 15 5.53043 15 5M9 12H15M9 16H15',
   trash: 'M4 7h16|M10 11v6|M14 11v6|M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12|M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3',
   x: 'M18 6l-12 12|M6 6l12 12',
+  info: 'M3 12a9 9 0 1 0 18 0a9 9 0 1 0 -18 0|M12 9h.01|M11 12h1v4h1',
+  filter: 'M4 4h16v2.172a2 2 0 0 1 -.586 1.414l-4.414 4.414v7l-6 2v-8.5l-4.48 -4.928a2 2 0 0 1 -.52 -1.345v-2.227z',
+  fileText: 'M14 3v4a1 1 0 0 0 1 1h4|M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z|M9 9h1|M9 13h6|M9 17h6',
+  sitemap: 'M3 15m0 2a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v2a2 2 0 0 1 -2 2h-2a2 2 0 0 1 -2 -2z|M15 15m0 2a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v2a2 2 0 0 1 -2 2h-2a2 2 0 0 1 -2 -2z|M9 3m0 2a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v2a2 2 0 0 1 -2 2h-2a2 2 0 0 1 -2 -2z|M6 15v-1a2 2 0 0 1 2 -2h8a2 2 0 0 1 2 2v1|M12 9v3',
+  listNumbers: 'M11 6h9|M11 12h9|M12 18h8|M4 16a2 2 0 1 1 4 0c0 .591 -.5 1 -1 1.5l-3 2.5h4|M6 10v-6l-2 2',
+  code: 'M7 8l-4 4l4 4|M17 8l4 4l-4 4|M14 4l-4 16',
+  hash: 'M5 9h14|M5 15h14|M11 4l-4 16|M17 4l-4 16',
+  category: 'M4 4h6v6h-6z|M14 4h6v6h-6z|M4 14h6v6h-6z|M14 17a3 3 0 1 0 6 0a3 3 0 1 0 -6 0',
+  arrowUp: 'M12 5v14|M18 11l-6 -6|M6 11l6 -6',
+  circlePlus: 'M3 12a9 9 0 1 0 18 0a9 9 0 1 0 -18 0|M9 12h6|M12 9v6',
+  dots: 'M12 12m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0|M12 19m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0|M12 5m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0',
+  selector: 'M8 9l4 -4l4 4|M16 15l-4 4l-4 -4',
+  chevronUp: 'M6 15l6 -6l6 6',
   check: 'M5 12l5 5l10 -10',
   chevronLeft: 'M15 6l-6 6l6 6',
   settings: 'M10.325 4.317c.426 -1.756 2.924 -1.756 3.35 0a1.724 1.724 0 0 0 2.573 1.066c1.543 -.94 3.31 .826 2.37 2.37a1.724 1.724 0 0 0 1.065 2.572c1.756 .426 1.756 2.924 0 3.35a1.724 1.724 0 0 0 -1.066 2.573c.94 1.543 -.826 3.31 -2.37 2.37a1.724 1.724 0 0 0 -2.572 1.065c-.426 1.756 -2.924 1.756 -3.35 0a1.724 1.724 0 0 0 -2.573 -1.066c-1.543 .94 -3.31 -.826 -2.37 -2.37a1.724 1.724 0 0 0 -1.065 -2.572c-1.756 -.426 -1.756 -2.924 0 -3.35a1.724 1.724 0 0 0 1.066 -2.573c-.94 -1.543 .826 -3.31 2.37 -2.37c1 .608 2.296 .07 2.572 -1.065z|M9 12a3 3 0 1 0 6 0a3 3 0 0 0 -6 0',
@@ -867,11 +968,12 @@ function accountProfile(a) {
 
 function companyProfile(c) {
   const h = hash(c.id), sl = slug(c.name), sites = sitesOf(c), users = 5 + h % 12, positions = 8 + h % 14;
-  const tabs = [['actions', 'Quick Actions'], ['overview', 'Company Overview'], ...['Employees', 'System Users', 'Positions', 'Roles', 'Brands', 'Approvals', 'Settings'].map(l => [l, l])];
+  const tabs = [['actions', 'Quick Actions'], ['overview', 'Company Overview'], ...['Employees', 'System Users', 'Positions', 'Roles', 'Brands', 'Approvals', 'Settings'].map(l => [l, l === 'Approvals' ? 'Approval Workflow' : l])];
   const addr = ['Km 22 East Service Rd., Cupang, Muntinlupa City, Metro Manila 1771', '7th Floor, MOA Square, Marina Way, Pasay City, Metro Manila 1300', '12 Aurora Blvd., Cubao, Quezon City, Metro Manila 1109', 'Lot 4 Clark Freeport Zone, Mabalacat, Pampanga 2010'][h % 4];
   const sizes = ['800 employees', '1,200 employees', '1,500 employees', '2,100 employees'];
   let body;
   if (S.ptab === 'actions') body = companyHub(c, { users, positions });
+  else if (S.ptab === 'Approvals') body = approvalGuide() + wfSection(c);
   else if (S.ptab === 'overview') body = `<div class="p-body">
     <div class="col grow">
       <div class="card about">${cardH('About')}<p>${esc(c.name)} ${c.blurb}. Workforce is deployed on rotating shifts with biometric attendance at each site. Billing rolls up to the host account on a semi-monthly cycle.</p></div>
@@ -895,6 +997,114 @@ function companyProfile(c) {
     <div class="stats">${stat('map', 'Sites', c.sites, 'All active')}${stat('userCircle', 'Active Agents', c.agents, '+6 this month', true)}${stat('users', 'System Users', users, `${1 + h % 3} pending invites`)}${stat('briefcase', 'Positions', positions, `${1 + h % 5} with open slots`)}</div>
     ${tabsHtml(tabs, S.ptab)}${body}</div>`;
 }
+
+/* Company > Approval Workflow tab: a static, general guide (it never tracks progress) on what to do per site. */
+const APPROVAL_STEPS = [
+  ['Open a site profile', 'Go to Sites and select the site you want to set up.'],
+  ['Go to the Approval Workflow tab', 'Open the Approval Workflow tab on the site profile.'],
+  ['Attach a workflow', 'Click Attach Workflow and choose one of this company’s workflows.'],
+  ['Assign approvers', 'Choose who approves at each approval sequence.']
+];
+function approvalGuide() {
+  if (S.guideHidden) return `<div class="guide-gone"><span>The setup guide is hidden.</span> <a class="lnk" data-guide="show">Show it again</a></div>`;
+  return `<section class="guide" aria-label="How to set up this workflow for each site">
+    <div class="guide-head"><span class="guide-ic">${icon('info')}</span>
+      <div class="guide-tx"><h3>Next: set up this workflow for each site</h3><p>Attaching a workflow to the company doesn’t apply it to sites automatically. For every site that needs it, follow these steps.</p></div>
+      <button class="guide-x" data-guide="hide" aria-label="Hide this guide">${icon('x')}</button></div>
+    <ol class="guide-steps">${APPROVAL_STEPS.map(([t, d], i) => `<li><span class="n">${i + 1}</span><div><b>${t}</b><span>${d}</span></div></li>`).join('')}</ol>
+    <div class="guide-act"><button class="btn primary" data-guide="go-sites">Go to Sites</button></div></section>`;
+}
+
+/* Company > Approval Workflow: the company's attached workflows (filter, sort, pagination) and the Attach Workflow drawer.
+   Data lives in memory for the session (one set per company). */
+const SEQ_AUTO = [{ name: 'Agent Self-Service', tags: [['MAKE', 'g'], ['Contractor', 'd']] }, { name: 'System Approver', tags: [['APPROVE', 'b'], ['OWF', 'd']] }];
+const SEQ_ONE = [{ name: 'Agent Self-Service', tags: [['MAKE', 'g'], ['Contractor', 'd']] }, { name: 'Site Approver', tags: [['APPROVE', 'b'], ['Client', 'd']] }, { name: 'System Approver', tags: [['APPROVE', 'b'], ['OWF', 'd']] }];
+const SEQ_DUAL = [{ name: 'Agent Self-Service', tags: [['MAKE', 'g'], ['Contractor', 'd']] }, { name: 'Site Approver', tags: [['APPROVE', 'b'], ['Client', 'd']] }, { name: 'Client Approver', tags: [['APPROVE', 'b'], ['Client', 'd']] }, { name: 'System Approver', tags: [['APPROVE', 'b'], ['OWF', 'd']] }];
+const WF_DOCS = [
+  { code: 'AEF_FTS', type: 'Attendance Exception Form', cat: 'Attendance' }, { code: 'BIL', type: 'Billing', cat: 'Billing' },
+  { code: 'JO', type: 'Job Order', cat: 'Billing' }, { code: 'LV', type: 'Leave Request', cat: 'Attendance' }];
+const WF_CATALOG = [
+  { code: 'FTS00', doc: 'AEF_FTS', specific: 'AEF – FTS – Auto Approved', seqs: SEQ_AUTO },
+  { code: 'FTS01', doc: 'AEF_FTS', specific: 'AEF – FTS – Single Approver', seqs: SEQ_ONE },
+  { code: 'BIL01', doc: 'BIL', specific: 'Billing - Single Approver with SC Acceptance', seqs: SEQ_ONE },
+  { code: 'BIL02', doc: 'BIL', specific: 'Billing - Dual Approver', seqs: SEQ_DUAL },
+  { code: 'JOB00', doc: 'JO', specific: 'Job Order - Auto Approved', seqs: SEQ_AUTO },
+  { code: 'JOB01', doc: 'JO', specific: 'Job Order - Two Level Approval', seqs: SEQ_DUAL },
+  { code: 'LV00', doc: 'LV', specific: 'Leave Request – Auto Approved', seqs: SEQ_AUTO },
+  { code: 'LV01', doc: 'LV', specific: 'Leave Request – Single Approver', seqs: SEQ_ONE }];
+const WF_COLS = [['specific', 'Specific'], ['doc', 'Document'], ['type', 'Document Type'], ['code', 'Workflow Code'], ['cat', 'Category'], ['created', 'Created Date']];
+const WFS = {};
+const wfRow = (code, created) => { const w = WF_CATALOG.find(x => x.code === code), d = WF_DOCS.find(x => x.code === w.doc); return { id: 'w' + code, code, specific: w.specific, doc: d.code, type: d.type, cat: d.cat, created, seqs: w.seqs }; };
+function wfFor(c) {
+  return WFS[c.id] || (WFS[c.id] = { rows: [wfRow('FTS00', '2026-10-06T16:00'), wfRow('BIL01', '2026-04-22T17:40'), wfRow('JOB00', '2026-04-14T11:24')], doc: 'all', key: 'created', dir: 'desc', lines: 10, newId: null });
+}
+const wfDate = iso => new Date(iso).toLocaleString('en-US', { month: 'short', day: '2-digit', year: 'numeric', hour: 'numeric', minute: '2-digit' }).replace(/, (\d{1,2}:)/, ' $1');
+function wfSection(c) {
+  const st = wfFor(c);
+  const rows = st.rows.filter(r => st.doc === 'all' || r.doc === st.doc).sort((a, b) => (a[st.key] > b[st.key] ? 1 : a[st.key] < b[st.key] ? -1 : 0) * (st.dir === 'asc' ? 1 : -1));
+  const shown = rows.slice(0, st.lines), n = shown.length;
+  const th = WF_COLS.map(([k, l]) => `<button class="wf-th" data-wf="sort" data-k="${k}" aria-label="Sort by ${l}">${l}${icon(st.key === k ? (st.dir === 'asc' ? 'chevronUp' : 'chevronDown') : 'selector')}</button>`).join('');
+  const body = shown.map(r => `<div class="wf-row${st.newId === r.id ? ' new' : ''}"><div class="wf-td">${esc(r.specific)}${st.newId === r.id ? '<span class="wf-new">New</span>' : ''}</div><div class="wf-td">${esc(r.doc)}</div><div class="wf-td">${esc(r.type)}</div><div class="wf-td">${esc(r.code)}</div><div class="wf-td">${esc(r.cat)}</div><div class="wf-td">${wfDate(r.created)}</div><div class="wf-td wf-kebab"><button class="ib" aria-label="Row actions">${icon('dots')}</button></div></div>`).join('')
+    || `<div class="wf-none">No workflows attached for this document yet.</div>`;
+  return `<section class="wf">
+    <div class="wf-bar"><label class="wf-filter">${icon('filter')}<span>Filter by Document</span>
+      <select data-wff="doc" aria-label="Filter by document"><option value="all">All Documents</option>${WF_DOCS.map(d => `<option value="${d.code}"${st.doc === d.code ? ' selected' : ''}>${d.type}</option>`).join('')}</select></label>
+      <button class="btn primary" data-wf="attach">${icon('plus')}Attach Workflow</button></div>
+    <div class="wf-table" role="table"><div class="wf-row wf-head" role="row">${th}<div></div></div>${body}</div>
+    <div class="wf-foot"><div class="wf-lines"><span>Lines per page</span><select data-wff="lines" aria-label="Lines per page">${[10, 25, 50].map(v => `<option${st.lines === v ? ' selected' : ''}>${v}</option>`).join('')}</select>
+      <span>${n ? `Showing 1 to ${n} of ${rows.length} items` : 'Showing 0 items'}</span></div>
+      <div class="wf-pager"><button disabled>Previous</button><button class="on">1</button><button disabled>Next</button></div></div></section>`;
+}
+function wfAct(act, k, c) {
+  const st = wfFor(c);
+  if (act === 'sort') { if (st.key === k) st.dir = st.dir === 'asc' ? 'desc' : 'asc'; else { st.key = k; st.dir = k === 'created' ? 'desc' : 'asc'; } renderProfile(); }
+  else if (act === 'attach') wfDrawer(c);
+}
+function wfDrawer(c) {
+  closeWfDrawer();
+  const st = wfFor(c), draft = { doc: '', code: '' };
+  const back = document.createElement('div'); back.id = 'wfd'; back.className = 'wfd-back';
+  $('#stage').appendChild(back);
+  const avail = () => WF_CATALOG.filter(w => w.doc === draft.doc && !st.rows.some(r => r.code === w.code));
+  const tag = ([t, k]) => `<span class="wfd-tag ${k}">${t}</span>`;
+  const draw = () => {
+    const doc = WF_DOCS.find(d => d.code === draft.doc), wf = WF_CATALOG.find(w => w.code === draft.code);
+    const opts = draft.doc ? avail() : [];
+    back.innerHTML = `<aside class="wfd" role="dialog" aria-modal="true" aria-labelledby="wfd-t">
+      <header><h2 id="wfd-t">${icon('circlePlus')}Attach Workflow</h2><button class="guide-x" data-d="close" aria-label="Close">${icon('x')}</button></header>
+      <div class="wfd-body">
+        <div class="wfd-f"><label>${icon('fileText')}Select Document <i>*</i></label>
+          <select data-d="doc"><option value="">-- Select a document --</option>${WF_DOCS.map(d => `<option value="${d.code}"${draft.doc === d.code ? ' selected' : ''}>[${d.code}] ${d.type}</option>`).join('')}</select></div>
+        <div class="wfd-f"><label>${icon('sitemap')}Select Approval Workflow <i>*</i></label>
+          <select data-d="wf"${draft.doc ? '' : ' disabled'}><option value="">-- Select a workflow --</option>${opts.map(w => `<option value="${w.code}"${draft.code === w.code ? ' selected' : ''}>[${w.code}] ${esc(w.specific)}</option>`).join('')}</select>
+          ${draft.doc ? (opts.length ? '' : '<small>All workflows for this document are already attached.</small>') : `<small>${icon('info')}Please select a document first</small>`}</div>
+        ${wf ? `<hr><h3>${icon('info')}Workflow Details</h3>
+          <div class="wfd-grid">${[['fileText', 'Specific', wf.specific], ['code', 'Document', doc.code], ['fileText', 'Document Type', doc.type], ['hash', 'Workflow Code', wf.code], ['category', 'Category', doc.cat], ['listNumbers', 'Total Sequences', wf.seqs.length]]
+            .map(([i, l, v]) => `<div class="wfd-cell"><span>${icon(i)}${l}</span><b${l === 'Total Sequences' ? ' class="or"' : ''}>${esc(v)}</b></div>`).join('')}</div>
+          <h3>${icon('listNumbers')}Approval Sequences</h3>
+          ${wf.seqs.map((s, i) => `<div class="wfd-seq"><span class="wfd-n ${i ? 'b' : 'g'}">${i}</span><div><b>${s.name}</b><div class="wfd-tags">${s.tags.map(tag).join('')}</div></div></div>`).join('')}`
+        : `<div class="wfd-empty">${icon('arrowUp')}<p>${draft.doc ? 'Please select a workflow from the dropdown above' : 'Please select a document from the dropdown above'}</p></div>`}
+      </div>
+      <footer><button class="btn secondary" data-d="close">Cancel</button><button class="btn primary" data-d="save"${wf ? '' : ' disabled'}>Save</button></footer></aside>`;
+  };
+  draw();
+  back.addEventListener('click', e => {
+    if (e.target === back || e.target.closest('[data-d="close"]')) return closeWfDrawer();
+    if (e.target.closest('[data-d="save"]') && draft.code) {
+      const row = wfRow(draft.code, new Date().toISOString().slice(0, 16));
+      st.rows.push(row); st.newId = row.id; st.doc = 'all'; st.key = 'created'; st.dir = 'desc';
+      closeWfDrawer(); renderProfile(); toast('Workflow attached successfully');
+    }
+  });
+  back.addEventListener('change', e => {
+    const d = e.target.dataset.d;
+    if (d === 'doc') { draft.doc = e.target.value; draft.code = ''; draw(); }
+    else if (d === 'wf') { draft.code = e.target.value; draw(); }
+  });
+  back.addEventListener('keydown', e => { if (e.key === 'Escape') closeWfDrawer(); });
+  const first = back.querySelector('select'); if (first) first.focus();
+}
+function closeWfDrawer() { const d = $('#wfd'); if (d) d.remove(); }
 
 /* Quick Actions hub: shortcut tiles that open the other tabs of a profile.
    tiles = [tabKey, icon, title, description, optional live meta]; add = optional dashed "do it now" tile */
@@ -922,7 +1132,7 @@ function companyHub(c, n) {
     ['Positions', 'briefcase', 'Positions', 'Job positions and open slots', `${plural(n.positions, 'position')}`],
     ['Roles', 'approver', 'Roles', 'Permissions granted to each role'],
     ['Brands', 'building', 'Brands', 'Brands and outlets this company operates'],
-    ['Approvals', 'approval', 'Approvals', 'Approval rules and pending requests'],
+    ['Approvals', 'approval', 'Approval Workflow', 'Approval rules and pending requests'],
     ['Settings', 'settings', 'Settings', 'Company preferences and configuration']
   ]);
 }
@@ -1228,6 +1438,14 @@ $('#s-body').addEventListener('click', e => {
 $('#panel').addEventListener('click', e => {
   const go = e.target.closest('[data-go]');
   if (go) { const [t, id] = go.dataset.go.split(':'); openRecord(t, id, 700); return; }
+  const w = e.target.closest('[data-wf]');
+  if (w && S.sel && S.sel.type === 'companies') { wfAct(w.dataset.wf, w.dataset.k, findRec('companies', S.sel.id)); return; }
+  const g = e.target.closest('[data-guide]');
+  if (g) {
+    if (g.dataset.guide === 'go-sites') { S.tab = 'sites'; renderSearch(); }   // jump to the Sites list of the search panel (narrowed to this company)
+    else { S.guideHidden = g.dataset.guide === 'hide'; renderProfile(); }
+    return;
+  }
   const tab = e.target.closest('[data-ptab]');
   if (tab) { S.ptab = tab.dataset.ptab; track('tab', { tab: S.ptab, rec: S.sel && S.sel.type + ':' + S.sel.id }); renderProfile(); if (tab.dataset.then) zsAct(tab.dataset.then); }
 });
@@ -1242,6 +1460,12 @@ $('#panel').addEventListener('input', e => {
   const st = S.sel && S.sel.type === 'sites' ? ZS[S.sel.id] : null; if (!st) return;
   if (e.target.id === 'zs-zq') { st.zq = e.target.value; renderZones(st); }
   if (e.target.id === 'zs-sq') { st.sq = e.target.value; st.page = 1; renderTable(st); }
+});
+$('#panel').addEventListener('change', e => {
+  const f = e.target.closest('[data-wff]'); if (!f || !S.sel || S.sel.type !== 'companies') return;
+  const st = wfFor(findRec('companies', S.sel.id));
+  if (f.dataset.wff === 'doc') st.doc = f.value; else st.lines = +f.value;
+  renderProfile();
 });
 $('#panel').addEventListener('keydown', e => {
   if (!e.target.closest('[data-edit]')) return;
